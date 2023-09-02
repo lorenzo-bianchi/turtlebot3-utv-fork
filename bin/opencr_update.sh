@@ -16,7 +16,7 @@ if [[ "${TRACE-0}" == "1" ]]; then set -o xtrace; fi
 CURR_DIR=${PWD##*/}
 INIT_DIR=$PWD
 REQ_CURR_DIR="turtlebot3-utv"
-if [[ $CURR_DIR != "$REQ_CURR_DIR" ]] || [[ $CURR_DIR != "workspace" ]]; then
+if [[ $CURR_DIR != "$REQ_CURR_DIR" ]] && [[ $CURR_DIR != "workspace" ]]; then
   echo >&2 "ERROR: Wrong path, this script must run inside $REQ_CURR_DIR"
   return 1
 fi
