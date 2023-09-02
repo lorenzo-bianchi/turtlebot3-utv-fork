@@ -13,6 +13,11 @@ ARG USER_UID=1000
 ENV DEBIAN_FRONTEND=noninteractive
 
 # IMAGE SETUP START #
+# Install general dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  libudev-dev && \
+  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*/apt/lists/*
+
 # Install dependencies to update and flash OpenCR firmware
 RUN dpkg --add-architecture armhf && \
   apt-get update && apt-get install -y --no-install-recommends \
