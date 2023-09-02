@@ -155,6 +155,13 @@ for GROUP in "${HW_GROUPS[@]}"; do
   fi
 done
 
+# Configure udev rules for OpenCR board
+echo "Adding udev rules for OpenCR board..."
+sleep 1
+sudo cp config/99-opencr-cdc.rules /etc/udev/rules.d/
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+
 cd "$INIT_DIR" || return 1
 echo "Done! Next run 'bin/container_setup.sh' to setup the Docker container on this board."
 echo "The system will now be restarted to apply all changes..."
