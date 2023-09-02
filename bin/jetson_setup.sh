@@ -67,7 +67,6 @@ sudo apt-get install -y --no-install-recommends \
   screen \
   ssh \
   sshfs \
-  tilix \
   valgrind \
   vim \
   wget
