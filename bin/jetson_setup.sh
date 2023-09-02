@@ -156,7 +156,7 @@ done
 # Configure udev rules for OpenCR board
 echo "Adding udev rules for OpenCR board..."
 sleep 1
-sudo cp config/99-opencr-cdc.rules /etc/udev/rules.d/
+sudo cp config/99-turtlebot3-cdc.rules /etc/udev/rules.d/
 sudo udevadm control --reload-rules
 sudo udevadm trigger
 
