@@ -16,14 +16,14 @@ if [[ "${TRACE-0}" == "1" ]]; then set -o xtrace; fi
 CURR_DIR=${PWD##*/}
 INIT_DIR=$PWD
 REQ_CURR_DIR="turtlebot3-utv"
-if [[ $CURR_DIR != "$REQ_CURR_DIR" ]]; then
+if [[ $CURR_DIR != "$REQ_CURR_DIR" ]] || [[ $CURR_DIR != "workspace" ]]; then
   echo >&2 "ERROR: Wrong path, this script must run inside $REQ_CURR_DIR"
   return 1
 fi
 
 # Print a little warning and wait for confirmation
 echo "WARNING: This script will update the OpenCR board firmware to the latest available official binary."
-echo "This script must be ran on the SBC."
+echo "This script must be ran on the SBC; it can run inside the Docker container."
 echo "Please make sure that the board is connected to the SBC via USB."
 echo "You can select the board port with the OPENCR_PORT environment variable, and the board model with the OPENCR_MODEL environment variable."
 echo "Current settings are:"
