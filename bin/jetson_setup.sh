@@ -134,7 +134,6 @@ echo "Creating new group for Docker users and adding $USER to it..."
 sleep 1
 sudo groupadd docker
 sudo usermod -aG docker "$USER"
-echo "You need to log off and on again to see this change!"
 
 # Add current user to hardware access groups
 HW_GROUPS=(
