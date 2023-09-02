@@ -13,12 +13,6 @@ ARG USER_UID=1000
 ENV DEBIAN_FRONTEND=noninteractive
 
 # IMAGE SETUP START #
-# Install dependencies to update and flash OpenCR firmware
-RUN dpkg --add-architecture armhf && \
-  apt-get update && apt-get install -y --no-install-recommends \
-  libc6:armhf && \
-  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*/apt/lists/*
-
 # Install SLAM and navigation packages: Cartographer and Nav2
 RUN apt-get update && apt-get install -y --no-install-recommends \
   ros-humble-cartographer \
