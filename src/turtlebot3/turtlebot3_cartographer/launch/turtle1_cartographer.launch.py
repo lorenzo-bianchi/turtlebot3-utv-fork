@@ -36,11 +36,13 @@ def generate_launch_description():
 
     resolution = LaunchConfiguration('resolution', default='0.05')
     publish_period_sec = LaunchConfiguration('publish_period_sec', default='1.0')
-
-    rviz_config_dir = os.path.join(get_package_share_directory('turtlebot3_cartographer'),
-                                   'rviz', 'tb3_cartographer.rviz')
+    turtlebot_name = LaunchConfiguration('turtlebot_name', default='turtle1')
 
     return LaunchDescription([
+        DeclareLaunchArgument(
+            'turtlebot_name',
+            default_value=turtlebot_name,
+            description='Turtlebot name'),
         DeclareLaunchArgument(
             'cartographer_config_dir',
             default_value=cartographer_config_dir,
@@ -58,10 +60,19 @@ def generate_launch_description():
             package='cartographer_ros',
             executable='cartographer_node',
             name='cartographer_node',
+            namespace=turtlebot_name,
+            remappings=[
+                ('/imu', '/{}/imu'.format(turtlebot_name.perform())),
+                ('/odom', '/{}/odom'.format(turtlebot_name.perform())),
+                ('/scan', '/{}/scan'.format(turtlebot_name.perform())),
+                ('/landmarks', '/{}/landmarks'.format(turtlebot_name.perform()))
+            ],
             output='screen',
             parameters=[{'use_sim_time': use_sim_time}],
             arguments=['-configuration_directory', cartographer_config_dir,
                        '-configuration_basename', configuration_basename]),
+                       #'-load_state_filename', '/home/neo/workspace/logs/labs.pbstream',
+                       #'-load_frozen_state', 'true']),
 
         DeclareLaunchArgument(
             'resolution',
@@ -83,7 +94,7 @@ def generate_launch_description():
             package='rviz2',
             executable='rviz2',
             name='rviz2',
-            arguments=['-d', rviz_config_dir],
+            arguments=['-d', '/home/neo/workspace/src/turtlebot3/turtlebot3_cartographer/rviz/' + turtlebot_name.perform() + '_cartographer.rviz'],
             parameters=[{'use_sim_time': use_sim_time}],
             output='screen'),
     ])
