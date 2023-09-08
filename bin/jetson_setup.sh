@@ -132,8 +132,8 @@ sudo ln -s /usr/local/lib/docker/cli-plugins/docker-compose /usr/local/bin/docke
 # Create docker group and add user to it
 echo "Creating new group for Docker users and adding $USER to it..."
 sleep 1
-sudo groupadd docker
-sudo usermod -aG docker "$USER"
+sudo groupadd docker || true
+sudo usermod -aG docker "$USER" || true
 
 # Add current user to hardware access groups
 HW_GROUPS=(
@@ -148,7 +148,7 @@ echo "Adding current user $USER to hardware access groups..."
 sleep 1
 for GROUP in "${HW_GROUPS[@]}"; do
   if ! groups | grep -q "$GROUP"; then
-    sudo usermod -a -G "$GROUP" "$USER"
+    sudo usermod -a -G "$GROUP" "$USER" || true
     echo "$USER added to $GROUP"
   fi
 done
