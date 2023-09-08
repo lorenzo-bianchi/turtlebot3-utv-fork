@@ -30,8 +30,7 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
-    TURTLEBOT3_MODEL = os.environ['TURTLEBOT3_MODEL']
-    TURTLEBOT3_NAME = socket.gethostname()
+    TURTLEBOT3_NAME = socket.gethostname().lower()
     LDS_MODEL = os.environ['LDS_MODEL']
     LDS_LAUNCH_FILE = '/hlds_laser.launch.py'
 
@@ -42,7 +41,7 @@ def generate_launch_description():
         default=os.path.join(
             get_package_share_directory('turtlebot3_bringup'),
             'param',
-            TURTLEBOT3_MODEL + '.yaml'))
+            TURTLEBOT3_NAME + '.yaml'))
 
     if LDS_MODEL == 'LDS-01':
         lidar_pkg_dir = LaunchConfiguration(
