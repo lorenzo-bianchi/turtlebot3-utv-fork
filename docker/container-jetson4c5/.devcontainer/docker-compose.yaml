@@ -45,8 +45,6 @@ services:
       - ../zshrc:/home/neo/.zshrc:rw
       - ../zsh_history:/home/neo/zsh_history
       - ~/.ssh:/home/neo/.ssh
-      - ~/.gitconfig:/home/neo/.gitconfig
-      - ~/.Xauthority:/home/neo/.Xauthority:rw
       - /dev:/dev
       - /sys:/sys
       - /etc/localtime:/etc/localtime:ro
