@@ -15,6 +15,8 @@
 # Author: Darby Lim
 
 import os
+import socket
+
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
@@ -26,6 +28,7 @@ from launch.substitutions import ThisLaunchFileDir
 
 
 def generate_launch_description():
+    TURTLEBOT3_NAME = socket.gethostname().lower()
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
     turtlebot3_cartographer_prefix = get_package_share_directory('turtlebot3_cartographer')
     cartographer_config_dir = LaunchConfiguration('cartographer_config_dir', default=os.path.join(
@@ -57,10 +60,19 @@ def generate_launch_description():
             package='cartographer_ros',
             executable='cartographer_node',
             name='cartographer_node',
+            namespace=TURTLEBOT3_NAME,
+            remappings=[
+                ('/imu', '/{}/imu'.format(TURTLEBOT3_NAME)),
+                ('/odom', '/{}/odom'.format(TURTLEBOT3_NAME)),
+                ('/scan', '/{}/scan'.format(TURTLEBOT3_NAME)),
+                ('/landmarks', '/{}/landmarks'.format(TURTLEBOT3_NAME))
+            ],
             output='screen',
             parameters=[{'use_sim_time': use_sim_time}],
             arguments=['-configuration_directory', cartographer_config_dir,
                        '-configuration_basename', configuration_basename]),
+                       #'-load_state_filename', '/home/neo/workspace/logs/labs.pbstream',
+                       #'-load_frozen_state', 'true']),
 
         DeclareLaunchArgument(
             'resolution',

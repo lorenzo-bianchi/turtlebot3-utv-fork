@@ -16,17 +16,20 @@
 #
 # Authors: Will Son
 
+import socket
 
 from launch import LaunchDescription
 from launch_ros.actions import Node
 
 
 def generate_launch_description():
+    TURTLEBOT3_NAME = socket.gethostname().lower()
 
     return LaunchDescription([
         Node(
             package='ld08_driver',
             executable='ld08_driver',
             name='ld08_driver',
+            namespace=TURTLEBOT3_NAME,
             output='screen'),
     ])
