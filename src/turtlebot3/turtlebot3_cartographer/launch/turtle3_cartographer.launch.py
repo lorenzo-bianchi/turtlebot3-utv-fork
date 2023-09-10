@@ -32,7 +32,7 @@ def generate_launch_description():
     cartographer_config_dir = LaunchConfiguration('cartographer_config_dir', default=os.path.join(
                                                   turtlebot3_cartographer_prefix, 'config'))
     configuration_basename = LaunchConfiguration('configuration_basename',
-                                                 default='turtle1_lds_2d.lua')
+                                                 default='turtle3_lds_2d.lua')
 
     resolution = LaunchConfiguration('resolution', default='0.05')
     publish_period_sec = LaunchConfiguration('publish_period_sec', default='1.0')
@@ -55,24 +55,24 @@ def generate_launch_description():
             package='cartographer_ros',
             executable='cartographer_node',
             name='cartographer_node',
-            namespace='turtle1',
+            namespace='turtle3',
             remappings=[
-                ('/imu', '/turtle1/imu'),
-                ('/odom', '/turtle1/odom'),
-                ('/scan', '/turtle1/scan'),
-                ('/landmarks', '/turtle1/landmarks'),
-                ('/constraint_list', '/turtle1/constraint_list'),
-                ('/landmark_poses_list', '/turtle1/landmark_poses_list'),
-                ('/scan_matched_points2d', '/turtle1/scan_matched_points2d'),
-                ('/submap_list', '/turtle1/submap_list'),
-                ('/trajectory_node_list', '/turtle1/trajectory_node_list'),
-                ('/finish_trajectory', '/turtle1/finish_trajectory'),
-                ('/get_trajectory_states', '/turtle1/get_trajectory_states'),
-                ('/read_metrics', '/turtle1/read_metrics'),
-                ('/start_trajectory', '/turtle1/start_trajectory'),
-                ('/submap_query', '/turtle1/submap_query'),
-                ('/trajectory_query', '/turtle1/trajectory_query'),
-                ('/write_state', '/turtle1/write_state')
+                ('/imu', '/turtle3/imu'),
+                ('/odom', '/turtle3/odom'),
+                ('/scan', '/turtle3/scan'),
+                ('/landmarks', '/turtle3/landmarks'),
+                ('/constraint_list', '/turtle3/constraint_list'),
+                ('/landmark_poses_list', '/turtle3/landmark_poses_list'),
+                ('/scan_matched_points2d', '/turtle3/scan_matched_points2d'),
+                ('/submap_list', '/turtle3/submap_list'),
+                ('/trajectory_node_list', '/turtle3/trajectory_node_list'),
+                ('/finish_trajectory', '/turtle3/finish_trajectory'),
+                ('/get_trajectory_states', '/turtle3/get_trajectory_states'),
+                ('/read_metrics', '/turtle3/read_metrics'),
+                ('/start_trajectory', '/turtle3/start_trajectory'),
+                ('/submap_query', '/turtle3/submap_query'),
+                ('/trajectory_query', '/turtle3/trajectory_query'),
+                ('/write_state', '/turtle3/write_state')
             ],
             output='screen',
             parameters=[{'use_sim_time': use_sim_time}],
@@ -92,7 +92,7 @@ def generate_launch_description():
             description='OccupancyGrid publishing period'),
 
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([ThisLaunchFileDir(), '/turtle1_occupancy_grid.launch.py']),
+            PythonLaunchDescriptionSource([ThisLaunchFileDir(), '/turtle3_occupancy_grid.launch.py']),
             launch_arguments={'use_sim_time': use_sim_time, 'resolution': resolution,
                               'publish_period_sec': publish_period_sec}.items(),
         ),
@@ -101,7 +101,7 @@ def generate_launch_description():
             package='rviz2',
             executable='rviz2',
             name='rviz2',
-            arguments=['-d', '/home/neo/workspace/src/turtlebot3/turtlebot3_cartographer/rviz/turtle1_cartographer.rviz'],
+            arguments=['-d', '/home/neo/workspace/src/turtlebot3/turtlebot3_cartographer/rviz/turtle3_cartographer.rviz'],
             parameters=[{'use_sim_time': use_sim_time}],
             output='screen'),
     ])
