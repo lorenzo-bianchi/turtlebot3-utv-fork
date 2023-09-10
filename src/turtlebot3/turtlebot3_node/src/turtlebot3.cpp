@@ -185,7 +185,7 @@ void TurtleBot3::add_sensors()
       node_handle_,
       "imu",
       "magnetic_field",
-      "imu_link"));
+      std::string(this->get_namespace()) + "/imu_link"));
 
   sensors_.push_back(
     new sensors::SensorState(
@@ -197,7 +197,11 @@ void TurtleBot3::add_sensors()
       is_connected_ir,
       is_connected_sonar));
 
-  sensors_.push_back(new sensors::JointState(node_handle_, "joint_states", "base_link"));
+  sensors_.push_back(
+    new sensors::JointState(
+      node_handle_,
+      "joint_states",
+      std::string(this->get_namespace()) + "/base_link"));
 }
 
 void TurtleBot3::add_devices()

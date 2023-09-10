@@ -51,7 +51,7 @@ def generate_launch_description():
         lidar_pkg_dir = LaunchConfiguration(
             'lidar_pkg_dir',
             default=os.path.join(get_package_share_directory('ld08_driver'), 'launch'))
-        LDS_LAUNCH_FILE = '/ld08.launch.py'
+        LDS_LAUNCH_FILE = '/utv_ld08.launch.py'
     else:
         lidar_pkg_dir = LaunchConfiguration(
             'lidar_pkg_dir',
@@ -77,19 +77,34 @@ def generate_launch_description():
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
-                [ThisLaunchFileDir(), '/turtlebot3_state_publisher.launch.py']),
+                [ThisLaunchFileDir(), '/utv_turtlebot3_state_publisher.launch.py']),
             launch_arguments={'use_sim_time': use_sim_time}.items(),
         ),
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([lidar_pkg_dir, LDS_LAUNCH_FILE]),
-            launch_arguments={'port': '/dev/ttyUSB0', 'frame_id': 'base_scan'}.items(),
+            launch_arguments={
+                'port': '/dev/ttyUSB0',
+                'frame_id': TURTLEBOT3_NAME + '/base_scan'}.items(),
         ),
 
         Node(
             package='turtlebot3_node',
             executable='turtlebot3_ros',
             namespace=TURTLEBOT3_NAME,
+            remappings=[
+                ('/cmd_vel', '/{}/cmd_vel'.format(TURTLEBOT3_NAME)),
+                ('/odom', '/{}/odom'.format(TURTLEBOT3_NAME)),
+                ('/joint_states', '/{}/joint_states'.format(TURTLEBOT3_NAME)),
+                ('/imu', '/{}/imu'.format(TURTLEBOT3_NAME)),
+                ('/battery_state', '/{}/battery_state'.format(TURTLEBOT3_NAME)),
+                ('/sensor_state', '/{}/sensor_state'.format(TURTLEBOT3_NAME)),
+                ('/magnetic_field', '/{}/magnetic_field'.format(TURTLEBOT3_NAME)),
+                ('/get_position', '/{}/get_position'.format(TURTLEBOT3_NAME)),
+                ('/sound', '/{}/sound'.format(TURTLEBOT3_NAME)),
+                ('/motor_power', '/{}/motor_power'.format(TURTLEBOT3_NAME)),
+                ('/reset', '/{}/reset'.format(TURTLEBOT3_NAME))
+            ],
             parameters=[tb3_param_dir],
             arguments=['-i', usb_port],
             output='screen'),
