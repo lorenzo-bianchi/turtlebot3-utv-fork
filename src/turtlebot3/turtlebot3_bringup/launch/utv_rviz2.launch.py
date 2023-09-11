@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Copyright 2021 ROBOTIS CO., LTD.
+# Copyright 2019 ROBOTIS CO., LTD.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,10 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Authors: Will Son
+# Authors: Darby Lim
 
+import os
 import socket
 
+from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
 
@@ -25,12 +27,16 @@ from launch_ros.actions import Node
 def generate_launch_description():
     TURTLEBOT3_NAME = socket.gethostname().lower()
 
+    rviz_config_dir = os.path.join(
+        get_package_share_directory('turtlebot3_description'),
+        'rviz',
+        TURTLEBOT3_NAME + '.rviz')
+
     return LaunchDescription([
         Node(
-            package='ld08_driver',
-            executable='ld08_driver',
-            name='ld08_driver',
-            namespace=TURTLEBOT3_NAME,
-            remappings=[('/scan', '/{}/scan'.format(TURTLEBOT3_NAME))],
+            package='rviz2',
+            executable='rviz2',
+            name='rviz2',
+            arguments=['-d', rviz_config_dir],
             output='screen'),
     ])

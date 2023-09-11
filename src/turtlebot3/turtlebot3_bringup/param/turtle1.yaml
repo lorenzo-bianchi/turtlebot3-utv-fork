@@ -30,5 +30,5 @@
     odometry:
       publish_tf: true
       use_imu: true
-      frame_id: "odom"
-      child_frame_id: "base_footprint"
+      frame_id: "turtle1/odom"
+      child_frame_id: "turtle1/base_footprint"
