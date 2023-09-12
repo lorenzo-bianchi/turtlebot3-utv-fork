@@ -13,6 +13,7 @@ ARG USER_UID=1000
 ENV DEBIAN_FRONTEND=noninteractive
 
 # IMAGE SETUP START #
+# turtlebot3-utv START #
 # Install general dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
   libudev-dev && \
@@ -33,6 +34,7 @@ ENV LDS_MODEL=LDS-02
 ENV OPENCR_PORT=/dev/ttyACM0
 ENV OPENCR_MODEL=burger
 ENV TURTLEBOT3_MODEL=burger
+# turtlebot3-utv END #
 # IMAGE SETUP END #
 
 # Create a user with Zsh as shell, hashed password, and add it to the sudoers
