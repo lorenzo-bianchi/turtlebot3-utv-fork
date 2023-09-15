@@ -93,7 +93,6 @@ def generate_launch_description():
             remappings=[
                 ('/cmd_vel', '/{}/cmd_vel'.format(TURTLEBOT3_NAME)),
                 ('/odom', '/{}/odom'.format(TURTLEBOT3_NAME)),
-                ('/joint_states', '/{}/joint_states'.format(TURTLEBOT3_NAME)),
                 ('/imu', '/{}/imu'.format(TURTLEBOT3_NAME)),
                 ('/battery_state', '/{}/battery_state'.format(TURTLEBOT3_NAME)),
                 ('/sensor_state', '/{}/sensor_state'.format(TURTLEBOT3_NAME)),
