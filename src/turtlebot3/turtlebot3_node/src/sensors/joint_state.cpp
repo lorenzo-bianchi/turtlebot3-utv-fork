@@ -70,8 +70,15 @@ void JointState::publish(
   msg->header.frame_id = this->frame_id_;
   msg->header.stamp = now;
 
-  msg->name.push_back("wheel_left_joint");
-  msg->name.push_back("wheel_right_joint");
+  // Extract the string portion before '/' from frame_id_
+  std::string::size_type pos = frame_id_.find("/");
+  std::string link_namespace = "";
+  if (pos != std::string::npos) {
+    link_namespace = frame_id_.substr(0, pos);
+  }
+
+  msg->name.push_back(link_namespace + "wheel_left_joint");
+  msg->name.push_back(link_namespace + "wheel_right_joint");
 
   msg->position.push_back(TICK_TO_RAD * last_diff_position[0]);
   msg->position.push_back(TICK_TO_RAD * last_diff_position[1]);
