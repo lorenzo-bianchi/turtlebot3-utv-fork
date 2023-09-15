@@ -108,6 +108,16 @@ Odometry::Odometry(
 
 void Odometry::joint_state_callback(const sensor_msgs::msg::JointState::SharedPtr joint_state_msg)
 {
+  // Check that this message is relative to the current robot, if we're in a swarm
+  if (std::strlen(nh_->get_namespace()) != 0) {
+    std::string ns(nh_->get_namespace() + 1);
+    for (auto & name : joint_state_msg->name) {
+      if (name.find(ns) == std::string::npos) {
+        return;
+      }
+    }
+  }
+
   static rclcpp::Time last_time = joint_state_msg->header.stamp;
   rclcpp::Duration duration(rclcpp::Duration::from_nanoseconds(
       joint_state_msg->header.stamp.nanosec - last_time.nanoseconds()));
@@ -123,6 +133,16 @@ void Odometry::joint_state_and_imu_callback(
   const std::shared_ptr<sensor_msgs::msg::JointState const> & joint_state_msg,
   const std::shared_ptr<sensor_msgs::msg::Imu const> & imu_msg)
 {
+  // Check that this message is relative to the current robot, if we're in a swarm
+  if (std::strlen(nh_->get_namespace()) != 0) {
+    std::string ns(nh_->get_namespace() + 1);
+    for (auto & name : joint_state_msg->name) {
+      if (name.find(ns) == std::string::npos) {
+        return;
+      }
+    }
+  }
+
   RCLCPP_DEBUG(
     nh_->get_logger(),
     "[joint_state_msg_] nanosec : %d [imu_msg] nanosec : %d",
