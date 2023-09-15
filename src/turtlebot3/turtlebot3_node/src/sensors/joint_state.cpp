@@ -74,7 +74,7 @@ void JointState::publish(
   std::string::size_type pos = frame_id_.find("/");
   std::string link_namespace = "";
   if (pos != std::string::npos) {
-    link_namespace = frame_id_.substr(0, pos);
+    link_namespace = frame_id_.substr(0, pos) + "/";
   }
 
   msg->name.push_back(link_namespace + "wheel_left_joint");
