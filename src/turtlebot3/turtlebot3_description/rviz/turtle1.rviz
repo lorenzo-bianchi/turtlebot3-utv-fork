@@ -80,14 +80,8 @@ Visualization Manager:
     - Alpha: 1
       Class: rviz_default_plugins/RobotModel
       Collision Enabled: false
-      Description File: ""
-      Description Source: Topic
-      Description Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /robot_description
+      Description Source: File
+      Description File: "/home/neo/workspace/src/turtlebot3/turtlebot3_description/urdf/turtle1.urdf"
       Enabled: true
       Links:
         All Links Enabled: true
