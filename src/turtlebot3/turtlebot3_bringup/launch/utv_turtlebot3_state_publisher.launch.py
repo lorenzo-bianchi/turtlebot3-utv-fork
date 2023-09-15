@@ -56,7 +56,7 @@ def generate_launch_description():
         Node(
             package='robot_state_publisher',
             executable='robot_state_publisher',
-            namespace=TURTLEBOT3_NAME,
+            name=TURTLEBOT3_NAME + '_robot_state_publisher',
             output='screen',
             parameters=[rsp_params, {'use_sim_time': use_sim_time}])
     ])
