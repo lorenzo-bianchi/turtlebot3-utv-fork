@@ -83,9 +83,7 @@ def generate_launch_description():
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([lidar_pkg_dir, LDS_LAUNCH_FILE]),
-            launch_arguments={
-                'port': '/dev/ttyUSB0',
-                'frame_id': TURTLEBOT3_NAME + '/base_scan'}.items(),
+            launch_arguments={'port': '/dev/ttyUSB0'}.items(),
         ),
 
         Node(

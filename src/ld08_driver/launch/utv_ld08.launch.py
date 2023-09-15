@@ -31,6 +31,7 @@ def generate_launch_description():
             executable='ld08_driver',
             name='ld08_driver',
             namespace=TURTLEBOT3_NAME,
+            arguments=[TURTLEBOT3_NAME],
             remappings=[('/scan', '/{}/scan'.format(TURTLEBOT3_NAME))],
             output='screen'),
     ])

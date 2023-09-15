@@ -32,7 +32,8 @@ int main(int argc, char ** argv)
   LiPkg * pkg;
   std::string product;
   int32_t ver = 8;
-  pkg = new LD08_LiPkg;
+  std::string frame_id = rclcpp::remove_ros_arguments(argc, argv)[1] + "/base_scan";
+  pkg = new LD08_LiPkg(frame_id);
 
   CmdInterfaceLinux cmd_port(ver);
   std::vector<std::pair<std::string, std::string>> device_list;

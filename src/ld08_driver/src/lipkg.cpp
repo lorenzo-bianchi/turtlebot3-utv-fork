@@ -56,8 +56,8 @@ static const uint8_t CrcTable[256] =
 };
 
 
-LiPkg::LiPkg()
-: mTimestamp(0), mSpeed(0), mErrorTimes(0), mIsFrameReady(false), mIsPkgReady(false)
+LiPkg::LiPkg(const std::string & frame_id)
+: mTimestamp(0), mSpeed(0), mErrorTimes(0), mIsFrameReady(false), mIsPkgReady(false), sFrameId(frame_id)
 {
 }
 
@@ -230,7 +230,7 @@ void LiPkg::ToLaserscan(std::vector<PointData> src)
   // Calculate the number of scanning points
   unsigned int beam_size = ceil((angle_max - angle_min) / angle_increment);
   // output.header.stamp = rclcpp::Time::now();
-  output.header.frame_id = "base_scan";
+  output.header.frame_id = sFrameId;
   output.angle_min = angle_min;
   output.angle_max = angle_max;
   output.range_min = range_min;
