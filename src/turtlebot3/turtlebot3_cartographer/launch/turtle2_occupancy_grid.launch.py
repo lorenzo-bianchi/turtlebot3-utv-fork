@@ -46,11 +46,6 @@ def generate_launch_description():
             executable='cartographer_occupancy_grid_node',
             name='cartographer_occupancy_grid_node',
             namespace='turtle2',
-            remappings=[
-                ('/submap_list', '/turtle2/submap_list'),
-                ('/map', '/turtle2/map'),
-                ('/submap_query', '/turtle2/submap_query')
-            ],
             output='screen',
             parameters=[{'use_sim_time': use_sim_time}],
             arguments=['-resolution', resolution, '-publish_period_sec', publish_period_sec]),
