@@ -1,0 +1,3 @@
+[submodule "roslam"]
+	path = roslam
+	url = git@github.com:lorenzo-bianchi/roslam.git
