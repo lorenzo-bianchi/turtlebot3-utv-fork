@@ -13,34 +13,12 @@ ARG USER_UID=1000
 ENV DEBIAN_FRONTEND=noninteractive
 
 # IMAGE SETUP START #
-# turtlebot3-utv START #
-# Install general dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-  libudev-dev && \
-  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*/apt/lists/*
-
-# Install dependencies to update and flash OpenCR firmware
-RUN dpkg --add-architecture armhf && \
-  apt-get update && apt-get install -y --no-install-recommends \
-  libc6:armhf && \
-  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*/apt/lists/*
-
-# Configure environment for this Turtlebot3 model:
-# - Laser Distance Sensor model: LDS-02
-# - Default OpenCR board port for flashing: /dev/ttyACM0
-# - OpenCR board model: burger
-# - Turtlebot3 model: burger
-ENV LDS_MODEL=LDS-02
-ENV OPENCR_PORT=/dev/ttyACM0
-ENV OPENCR_MODEL=burger
-ENV TURTLEBOT3_MODEL=burger
-# turtlebot3-utv END #
 # IMAGE SETUP END #
 
 # Create a user with Zsh as shell, hashed password, and add it to the sudoers
 # To generate the hashed password, run:
 #   mkpasswd -m sha-512 PASSWORD intelsyslab
-RUN useradd -r -m -s /usr/bin/zsh -u ${USER_UID} -G adm,dialout,internal,plugdev,sudo,tty,video -p '$6$intelsyslab$8/7mBYlMrEWaNUX3JRV/ws6HGWs5PVXI7WgCqX7bSJuWdtAPZ7D/jVOOlAQNq3zWmpHr4WG/3cDSzDoc2rnax1' neo
+RUN useradd -r -m -s /usr/bin/zsh -u ${USER_UID} -G adm,dialout,internal,plugdev,sudo,tty,video -p '$6$intelsyslab$rYCc9G1kwGOsAnfDXHOzFjuPHD9Q12V6jxoGp4fkIqXn/GFw44Oup0qLnbtXf4h2FotZA8Jqu5nc/hbyC5v6i.' neo
 ENV HOME=/home/neo
 
 # Create workspace directory: host workspaces will be mounted here

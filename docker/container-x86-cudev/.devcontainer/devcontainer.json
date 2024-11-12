@@ -1,12 +1,12 @@
 {
-  "name": "turtlebot3-utv-x86-cudev",
+  "name": "turtlebot3-roslam-x86-cudev",
   "dockerComposeFile": [
     "docker-compose.yaml"
   ],
   // Only start this service
-  "service": "turtlebot3-utv-x86-cudev",
+  "service": "turtlebot3-roslam-x86-cudev",
   "runServices": [
-    "turtlebot3-utv-x86-cudev"
+    "turtlebot3-roslam-x86-cudev"
   ],
   // Stop container if VS Code is shut down
   "shutdownAction": "stopCompose",

@@ -1,12 +1,12 @@
 {
-  "name": "turtlebot3-utv-jetson4c5",
+  "name": "turtlebot3-roslam-jetson4c5",
   "dockerComposeFile": [
     "docker-compose.yaml"
   ],
   // Only start this service
-  "service": "turtlebot3-utv-jetson4c5",
+  "service": "turtlebot3-roslam-jetson4c5",
   "runServices": [
-    "turtlebot3-utv-jetson4c5"
+    "turtlebot3-roslam-jetson4c5"
   ],
   // Stop container if VS Code is shut down
   "shutdownAction": "stopCompose",

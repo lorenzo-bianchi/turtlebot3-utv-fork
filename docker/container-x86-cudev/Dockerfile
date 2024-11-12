@@ -13,26 +13,6 @@ ARG USER_UID=1000
 ENV DEBIAN_FRONTEND=noninteractive
 
 # IMAGE SETUP START #
-# turtlebot3-utv START #
-# Install SLAM and navigation packages: Cartographer and Nav2
-RUN apt-get update && apt-get install -y --no-install-recommends \
-  ros-humble-cartographer \
-  ros-humble-cartographer-ros \
-  ros-humble-cartographer-rviz \
-  ros-humble-navigation2 \
-  ros-humble-nav2-bringup && \
-  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*/apt/lists/*
-
-# Configure environment for this Turtlebot3 model:
-# - Laser Distance Sensor model: LDS-02
-# - Default OpenCR board port for flashing: /dev/ttyACM0
-# - OpenCR board model: burger
-# - Turtlebot3 model: burger
-ENV LDS_MODEL=LDS-02
-ENV OPENCR_PORT=/dev/ttyACM0
-ENV OPENCR_MODEL=burger
-ENV TURTLEBOT3_MODEL=burger
-# turtlebot3-utv END #
 # IMAGE SETUP END #
 
 # Create a user with Zsh as shell, hashed password, and add it to the sudoers
