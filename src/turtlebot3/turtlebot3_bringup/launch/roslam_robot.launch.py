@@ -62,7 +62,7 @@ def generate_launch_description():
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
-                [ThisLaunchFileDir(), '/utv_turtlebot3_state_publisher.launch.py']),
+                [ThisLaunchFileDir(), '/roslam_turtlebot3_state_publisher.launch.py']),
             launch_arguments={'use_sim_time': use_sim_time}.items(),
         ),
 
