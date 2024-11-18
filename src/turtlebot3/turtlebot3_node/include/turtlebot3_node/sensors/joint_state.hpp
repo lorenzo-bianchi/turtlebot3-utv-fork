@@ -50,6 +50,8 @@ public:
     const rclcpp::Time & now,
     std::shared_ptr<DynamixelSDKWrapper> & dxl_sdk_wrapper) override;
 
+  bool first_time = true;
+
 private:
   rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr pub_;
 };

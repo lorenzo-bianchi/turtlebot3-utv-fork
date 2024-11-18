@@ -49,7 +49,7 @@ public:
   virtual ~Odometry() {}
 
 private:
-  bool calculate_odometry(const rclcpp::Duration & duration);
+  bool calculate_odometry(const rclcpp::Duration & duration, const rclcpp::Time & now);
 
   void update_imu(const std::shared_ptr<sensor_msgs::msg::Imu const> & imu);
   void update_joint_state(const std::shared_ptr<sensor_msgs::msg::JointState const> & joint_state);

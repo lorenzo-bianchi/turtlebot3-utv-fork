@@ -23,6 +23,8 @@
 #include <std_srvs/srv/trigger.hpp>
 
 #include "turtlebot3_node/devices/devices.hpp"
+#include "turtlebot3_node/sensors/imu.hpp"
+#include "turtlebot3_node/sensors/joint_state.hpp"
 
 namespace robotis
 {
@@ -40,12 +42,15 @@ public:
   explicit Reset(
     std::shared_ptr<rclcpp::Node> & nh,
     std::shared_ptr<DynamixelSDKWrapper> & dxl_sdk_wrapper,
+    std::list<sensors::Sensors *> & sensors,
     const std::string & server_name = "reset");
 
   void command(const void * request, void * response) override;
 
 private:
   rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr srv_;
+  sensors::Imu * imu_;
+  sensors::JointState * joint_state_;
 };
 }  // namespace devices
 }  // namespace turtlebot3

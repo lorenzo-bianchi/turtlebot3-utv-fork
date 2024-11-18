@@ -39,27 +39,57 @@ void Imu::publish(
   const rclcpp::Time & now,
   std::shared_ptr<DynamixelSDKWrapper> & dxl_sdk_wrapper)
 {
+  float qw, qx, qy, qz;
+
+  if (first_time) {
+    first_time = false;
+    
+    qw = dxl_sdk_wrapper->get_data_from_device<float>(
+    extern_control_table.imu_orientation_w.addr,
+    extern_control_table.imu_orientation_w.length);
+
+    qx = dxl_sdk_wrapper->get_data_from_device<float>(
+      extern_control_table.imu_orientation_x.addr,
+      extern_control_table.imu_orientation_x.length);
+
+    qy = dxl_sdk_wrapper->get_data_from_device<float>(
+      extern_control_table.imu_orientation_y.addr,
+      extern_control_table.imu_orientation_y.length);
+
+    qz = dxl_sdk_wrapper->get_data_from_device<float>(
+      extern_control_table.imu_orientation_z.addr,
+      extern_control_table.imu_orientation_z.length);
+
+    q0_conj = {qw, -qx, -qy, -qz};
+  }
   auto imu_msg = std::make_unique<sensor_msgs::msg::Imu>();
 
   imu_msg->header.frame_id = this->frame_id_;
   imu_msg->header.stamp = now;
 
-  imu_msg->orientation.w = dxl_sdk_wrapper->get_data_from_device<float>(
+  qw = dxl_sdk_wrapper->get_data_from_device<float>(
     extern_control_table.imu_orientation_w.addr,
     extern_control_table.imu_orientation_w.length);
 
-  imu_msg->orientation.x = dxl_sdk_wrapper->get_data_from_device<float>(
+  qx = dxl_sdk_wrapper->get_data_from_device<float>(
     extern_control_table.imu_orientation_x.addr,
     extern_control_table.imu_orientation_x.length);
 
-  imu_msg->orientation.y = dxl_sdk_wrapper->get_data_from_device<float>(
+  qy = dxl_sdk_wrapper->get_data_from_device<float>(
     extern_control_table.imu_orientation_y.addr,
     extern_control_table.imu_orientation_y.length);
 
-  imu_msg->orientation.z = dxl_sdk_wrapper->get_data_from_device<float>(
+  qz = dxl_sdk_wrapper->get_data_from_device<float>(
     extern_control_table.imu_orientation_z.addr,
     extern_control_table.imu_orientation_z.length);
 
+  // Orientation
+  imu_msg->orientation.w = q0_conj[0] * qw - q0_conj[1] * qx - q0_conj[2] * qy - q0_conj[3] * qz;
+  imu_msg->orientation.x = q0_conj[0] * qx + q0_conj[1] * qw + q0_conj[2] * qz - q0_conj[3] * qy;
+  imu_msg->orientation.y = q0_conj[0] * qy - q0_conj[1] * qz + q0_conj[2] * qw + q0_conj[3] * qx;
+  imu_msg->orientation.z = q0_conj[0] * qz + q0_conj[1] * qy - q0_conj[2] * qx + q0_conj[3] * qw;
+
+  // Angular velocity
   imu_msg->angular_velocity.x = dxl_sdk_wrapper->get_data_from_device<float>(
     extern_control_table.imu_angular_velocity_x.addr,
     extern_control_table.imu_angular_velocity_x.length);
@@ -72,6 +102,7 @@ void Imu::publish(
     extern_control_table.imu_angular_velocity_z.addr,
     extern_control_table.imu_angular_velocity_z.length);
 
+  // Linear acceleration
   imu_msg->linear_acceleration.x = dxl_sdk_wrapper->get_data_from_device<float>(
     extern_control_table.imu_linear_acceleration_x.addr,
     extern_control_table.imu_linear_acceleration_x.length);
@@ -84,6 +115,7 @@ void Imu::publish(
     extern_control_table.imu_linear_acceleration_z.addr,
     extern_control_table.imu_linear_acceleration_z.length);
 
+  // Magnetic field
   auto mag_msg = std::make_unique<sensor_msgs::msg::MagneticField>();
 
   mag_msg->header.frame_id = this->frame_id_;

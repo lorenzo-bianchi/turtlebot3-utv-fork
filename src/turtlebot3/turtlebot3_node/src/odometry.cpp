@@ -123,7 +123,7 @@ void Odometry::joint_state_callback(const sensor_msgs::msg::JointState::SharedPt
       joint_state_msg->header.stamp.nanosec - last_time.nanoseconds()));
 
   update_joint_state(joint_state_msg);
-  calculate_odometry(duration);
+  calculate_odometry(duration, last_time);
   publish(joint_state_msg->header.stamp);
 
   last_time = joint_state_msg->header.stamp;
@@ -155,7 +155,7 @@ void Odometry::joint_state_and_imu_callback(
 
   update_joint_state(joint_state_msg);
   update_imu(imu_msg);
-  calculate_odometry(duration);
+  calculate_odometry(duration, last_time);
   publish(joint_state_msg->header.stamp);
 
   last_time = joint_state_msg->header.stamp;
@@ -236,7 +236,7 @@ void Odometry::update_imu(const std::shared_ptr<sensor_msgs::msg::Imu const> & i
     0.5f - imu->orientation.y * imu->orientation.y - imu->orientation.z * imu->orientation.z);
 }
 
-bool Odometry::calculate_odometry(const rclcpp::Duration & duration)
+bool Odometry::calculate_odometry(const rclcpp::Duration & duration, const rclcpp::Time & last_time)
 {
   // rotation value of wheel [rad]
   double wheel_l = diff_joint_positions_[0];
@@ -257,6 +257,14 @@ bool Odometry::calculate_odometry(const rclcpp::Duration & duration)
 
   if (step_time == 0.0) {
     return false;
+  }
+
+  // check reset
+  rclcpp::Duration delta_time = nh_->now() - last_time;
+  if (delta_time.seconds() > 4.0) {
+    robot_pose_ = {0.0, 0.0, 0.0};
+    last_theta = 0.0;
+    wheel_l = wheel_r = 0.0;
   }
 
   if (std::isnan(wheel_l)) {
@@ -284,7 +292,7 @@ bool Odometry::calculate_odometry(const rclcpp::Duration & duration)
 
   RCLCPP_DEBUG(nh_->get_logger(), "x : %f, y : %f", robot_pose_[0], robot_pose_[1]);
 
-  // compute odometric instantaneouse velocity
+  // compute odometric instantaneous velocity
   v = delta_s / step_time;
   w = delta_theta / step_time;
 

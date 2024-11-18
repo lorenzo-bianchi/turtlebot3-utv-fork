@@ -44,6 +44,9 @@ public:
     const rclcpp::Time & now,
     std::shared_ptr<DynamixelSDKWrapper> & dxl_sdk_wrapper) override;
 
+  bool first_time = true;
+  std::array<float, 4> q0_conj;
+
 private:
   rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr imu_pub_;
   rclcpp::Publisher<sensor_msgs::msg::MagneticField>::SharedPtr mag_pub_;

@@ -210,7 +210,7 @@ void TurtleBot3::add_devices()
   devices_["motor_power"] =
     new devices::MotorPower(node_handle_, dxl_sdk_wrapper_, "motor_power");
   devices_["reset"] =
-    new devices::Reset(node_handle_, dxl_sdk_wrapper_, "reset");
+    new devices::Reset(node_handle_, dxl_sdk_wrapper_, sensors_, "reset");
   devices_["sound"] =
     new devices::Sound(node_handle_, dxl_sdk_wrapper_, "sound");
 }

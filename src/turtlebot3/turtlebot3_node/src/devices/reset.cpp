@@ -24,6 +24,7 @@ using robotis::turtlebot3::devices::Reset;
 Reset::Reset(
   std::shared_ptr<rclcpp::Node> & nh,
   std::shared_ptr<DynamixelSDKWrapper> & dxl_sdk_wrapper,
+  std::list<sensors::Sensors *> & sensors,
   const std::string & server_name)
 : Devices(nh, dxl_sdk_wrapper)
 {
@@ -37,6 +38,12 @@ Reset::Reset(
       this->command(static_cast<void *>(request.get()), static_cast<void *>(response.get()));
     }
   );
+
+  auto it = sensors.begin();
+  std::advance(it, 1);
+  imu_ = dynamic_cast<sensors::Imu *>(*it);
+  std::advance(it, 2);
+  joint_state_ = dynamic_cast<sensors::JointState *>(*it);
 }
 
 void Reset::command(const void * request, void * response)
@@ -56,6 +63,9 @@ void Reset::command(const void * request, void * response)
   RCLCPP_INFO(nh_->get_logger(), "Start Calibration of Gyro");
   rclcpp::sleep_for(std::chrono::seconds(5));
   RCLCPP_INFO(nh_->get_logger(), "Calibration End");
+
+  imu_->first_time = true;
+  joint_state_->first_time = true;
 }
 
 void Reset::request(

@@ -39,17 +39,34 @@ void JointState::publish(
   const rclcpp::Time & now,
   std::shared_ptr<DynamixelSDKWrapper> & dxl_sdk_wrapper)
 {
-  auto msg = std::make_unique<sensor_msgs::msg::JointState>();
-
+  static std::array<int32_t, JOINT_NUM> initial_position;
   static std::array<int32_t, JOINT_NUM> last_diff_position, last_position;
+
+  if (first_time)
+  {
+    first_time = false;
+
+    initial_position =
+    {dxl_sdk_wrapper->get_data_from_device<int32_t>(
+        extern_control_table.present_position_left.addr,
+        extern_control_table.present_position_left.length),
+      dxl_sdk_wrapper->get_data_from_device<int32_t>(
+        extern_control_table.present_position_right.addr,
+        extern_control_table.present_position_right.length)};
+
+    last_diff_position = {0, 0};
+    last_position = {0, 0};
+  }
+
+  auto msg = std::make_unique<sensor_msgs::msg::JointState>();
 
   std::array<int32_t, JOINT_NUM> position =
   {dxl_sdk_wrapper->get_data_from_device<int32_t>(
       extern_control_table.present_position_left.addr,
-      extern_control_table.present_position_left.length),
+      extern_control_table.present_position_left.length) - initial_position[0],
     dxl_sdk_wrapper->get_data_from_device<int32_t>(
       extern_control_table.present_position_right.addr,
-      extern_control_table.present_position_right.length)};
+      extern_control_table.present_position_right.length) - initial_position[1]};
 
   std::array<int32_t, JOINT_NUM> velocity =
   {dxl_sdk_wrapper->get_data_from_device<int32_t>(
