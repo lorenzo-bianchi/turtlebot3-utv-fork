@@ -1,3 +1,6 @@
 [submodule "src/roslam"]
 	path = src/roslam
 	url = https://github.com/lorenzo-bianchi/roslam.git
+[submodule "src/rviz2_custom_plugins/rviz2_twist_plugin"]
+	path = src/rviz2_custom_plugins/rviz2_twist_plugin
+	url = git@github.com:lorenzo-bianchi/rviz2_twist_plugin.git
