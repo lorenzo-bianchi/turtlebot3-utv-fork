@@ -4,10 +4,19 @@
     // Example launch of a python file
     {
       "name": "Python: Current File",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "program": "${file}",
       "console": "integratedTerminal",
+    },
+    {
+      "name": "ROS: Launch",
+      "type": "ros",
+      "request": "launch",
+      "target": "/home/neo/workspace/src/roslam/src/ro_slam_py/launch/ro_slam_py.launch.py",
+      "env": {
+              "DEBUG": "1",
+             }
     }
   ]
 }
