@@ -1,4 +1,4 @@
-/turtle3/turtlebot3_node:
+/robot3/turtlebot3_node:
   ros__parameters:
 
     opencr:
@@ -24,7 +24,7 @@
       ir: 0
       sonar: 0
 
-/turtle3/diff_drive_controller:
+/robot3/diff_drive_controller:
   ros__parameters:
 
     odometry:
