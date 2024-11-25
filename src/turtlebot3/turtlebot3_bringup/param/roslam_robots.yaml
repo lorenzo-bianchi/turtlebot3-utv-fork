@@ -27,7 +27,7 @@
 /robot1/diff_drive_controller:
   ros__parameters:
     odometry:
-      publish_tf: true
+      publish_tf: false
       use_imu: true
       frame_id: "robot1/odom"
       child_frame_id: "robot1/base_footprint"
@@ -61,7 +61,7 @@
 /robot2/diff_drive_controller:
   ros__parameters:
     odometry:
-      publish_tf: true
+      publish_tf: false
       use_imu: true
       frame_id: "robot2/odom"
       child_frame_id: "robot2/base_footprint"
@@ -95,7 +95,7 @@
 /robot3/diff_drive_controller:
   ros__parameters:
     odometry:
-      publish_tf: true
+      publish_tf: false
       use_imu: true
       frame_id: "robot3/odom"
       child_frame_id: "robot3/base_footprint"
