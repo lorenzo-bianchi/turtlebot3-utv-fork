@@ -28,7 +28,7 @@
   ros__parameters:
 
     odometry:
-      publish_tf: true
+      publish_tf: false
       use_imu: true
       frame_id: "turtle1/odom"
       child_frame_id: "turtle1/base_footprint"
