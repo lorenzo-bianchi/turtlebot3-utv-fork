@@ -1,0 +1,39 @@
+Mesh 1
+  R1-T1 - 4A21
+  R2-T2 - 52B0
+  R3-T3 - 54B3
+  A1    - 44AE
+  A2    - 5723
+  A3    - 8192
+  A4    - 08B0
+
+Mesh 2
+  R1-T1 - 860B
+  R2-A2 - 139C
+  R3-A3 - 9128
+
+Mesh3
+  R2-T2 - 5107
+  R3-A3 - 4A21
+
+##############
+
+Fixed anchors
+  A1    - 44AE
+  A2    - 5723
+  A3    - 8192
+  A4    - 08B0
+
+Robot 1
+  M1-T1 - 4A21  X
+  M2-T1 - 860B  X
+
+Robot 2
+  M1-T2 - 52B0  X
+  M3-T2 - 5107  X
+  M2-A2 - 139C
+
+Robot 3
+  M1-T3 - 54B3  X
+  M2-A3 - 9128
+  M3-A3 - 4A21
