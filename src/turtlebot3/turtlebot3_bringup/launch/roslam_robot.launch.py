@@ -29,7 +29,8 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
-    tb3_name = LaunchConfiguration('tb3_name', default='robot1')
+    robot_id = os.getenv('ROBOT_ID')
+    tb3_name = LaunchConfiguration('tb3_name', default='robot'+robot_id)
 
     usb_port = LaunchConfiguration('usb_port', default='/dev/ttyACM0')
 

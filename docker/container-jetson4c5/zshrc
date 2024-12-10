@@ -120,3 +120,5 @@ source ~/.ros2.sh && ros2init && eval "$(register-python-argcomplete3 ros2)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export ROBOT_ID=$(hostname | grep -o '[0-9]*')
