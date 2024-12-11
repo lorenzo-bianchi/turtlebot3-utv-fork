@@ -32,7 +32,7 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
 
     urdf = os.path.join(
-        get_package_share_directory('robot_sim'), 'urdf', 'robot.urdf')
+        get_package_share_directory('ro_slam_descriptions'), 'urdf', 'robot.urdf')
 
     # Major refactor of the robot_state_publisher
     # Reference page: https://github.com/ros2/demos/pull/426
