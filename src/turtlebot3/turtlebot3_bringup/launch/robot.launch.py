@@ -33,7 +33,7 @@ def generate_launch_description():
     LDS_MODEL = os.environ['LDS_MODEL']
     LDS_LAUNCH_FILE = '/hlds_laser.launch.py'
 
-    usb_port = LaunchConfiguration('usb_port', default='/dev/ttyACM0')
+    usb_port = LaunchConfiguration('usb_port', default='/dev/opencr')
 
     tb3_param_dir = LaunchConfiguration(
         'tb3_param_dir',

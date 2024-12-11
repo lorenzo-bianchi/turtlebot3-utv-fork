@@ -33,7 +33,7 @@ def generate_launch_description():
     robot_id = '0' if robot_id is None else robot_id
     tb3_name = LaunchConfiguration('tb3_name', default='robot'+robot_id)
 
-    usb_port = LaunchConfiguration('usb_port', default='/dev/ttyACM0')
+    usb_port = LaunchConfiguration('usb_port', default='/dev/opencr')
 
     tb3_param_dir = LaunchConfiguration(
         'tb3_param_dir',
