@@ -293,8 +293,8 @@ bool Odometry::calculate_odometry(const rclcpp::Duration & duration, const rclcp
   RCLCPP_DEBUG(nh_->get_logger(), "x : %f, y : %f", robot_pose_[0], robot_pose_[1]);
 
   // compute odometric instantaneous velocity
-  v = delta_s / step_time;
-  w = delta_theta / step_time;
+  v = delta_s / delta_time.seconds();
+  w = delta_theta / delta_time.seconds();
 
   robot_vel_[0] = v;
   robot_vel_[1] = 0.0;
